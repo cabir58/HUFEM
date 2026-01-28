@@ -6,7 +6,7 @@ QtObject {
     // Using geometric shapes and symbols for a more professional appearance
     
     readonly property string dashboard: "◫"    // Dashboard icon - grid square
-    readonly property string users: "≡"        // Group/Users icon - triple line
+    readonly property string users: "≣"        // Group/Users icon - triple line with spacing
     readonly property string folder: "📁"       // Folder icon - folder symbol
     readonly property string calendar: "⌚"     // Calendar icon - calendar symbol
     readonly property string clipboard: "☰"    // Clipboard/Survey icon - list
@@ -25,7 +25,7 @@ QtObject {
     readonly property string chevronRight: "›" // Right arrow - chevron
     readonly property string chevronDown: "⌄"  // Down arrow - chevron
     readonly property string chevronLeft: "‹"  // Left arrow - chevron
-    readonly property string menu: "☰"         // Menu/Hamburger icon - menu
+    readonly property string menu: "☷"         // Menu/Hamburger icon - trigram
     readonly property string lung: "◐"         // Lung/Medical icon - circle
     readonly property string rotate: "⟲"       // Rotate/Refresh icon - rotate with circle
     readonly property string moon: "☽"         // Night/Moon icon - moon
@@ -42,8 +42,8 @@ QtObject {
     readonly property string save: "▣"         // Save icon - save
     readonly property string printer: "⎙"      // Print icon - printer
     readonly property string excel: "▦"        // Excel/Spreadsheet icon - spreadsheet
-    readonly property string pdf: "☰"          // PDF icon - lines symbol
+    readonly property string pdf: "◧"          // PDF icon - rectangle with fill
     readonly property string share: "⇪"        // Share icon - share
-    readonly property string filter: "≡"       // Filter icon - filter
+    readonly property string filter: "▽"       // Filter icon - inverted triangle
     readonly property string sort: "⇅"         // Sort icon - sort
 }
