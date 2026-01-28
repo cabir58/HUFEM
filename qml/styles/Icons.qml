@@ -2,48 +2,48 @@ pragma Singleton
 import QtQuick
 
 QtObject {
-    // Material Design Icons using Unicode characters
-    // These are standard Unicode symbols that work across all platforms
+    // Professional Unicode Icons
+    // Using geometric shapes and symbols for a more professional appearance
     
-    readonly property string dashboard: "⬜"  // Dashboard icon
-    readonly property string users: "👥"     // Group/Users icon
-    readonly property string folder: "📂"    // Folder icon
-    readonly property string calendar: "📅"   // Calendar icon
-    readonly property string clipboard: "📋" // Clipboard/Survey icon
-    readonly property string edit: "✏️"      // Edit/Pencil icon
-    readonly property string barChart: "📊"   // Chart/Statistics icon
-    readonly property string fileText: "📄"   // Document icon
-    readonly property string settings: "⚙️"   // Settings/Gear icon
-    readonly property string plus: "➕"      // Plus/Add icon
-    readonly property string search: "🔍"    // Search icon
-    readonly property string trash: "🗑️"     // Delete/Trash icon
-    readonly property string eye: "👁️"       // View/Eye icon
-    readonly property string download: "⬇️"   // Download icon
-    readonly property string upload: "⬆️"     // Upload icon
-    readonly property string check: "✅"     // Checkmark icon
-    readonly property string close: "✖️"      // Close/X icon
-    readonly property string chevronRight: "▶️"  // Right arrow
-    readonly property string chevronDown: "▼"   // Down arrow
-    readonly property string chevronLeft: "◀️"   // Left arrow
-    readonly property string menu: "☰"       // Menu/Hamburger icon
-    readonly property string lung: "🫁"      // Lung/Medical icon
-    readonly property string rotate: "🔄"    // Rotate/Refresh icon
-    readonly property string moon: "🌙"      // Night/Moon icon
-    readonly property string play: "▶️"       // Play icon
-    readonly property string pause: "⏸️"      // Pause icon
-    readonly property string refresh: "🔄"   // Refresh icon
-    readonly property string home: "🏠"      // Home icon
-    readonly property string user: "👤"      // User icon
-    readonly property string bell: "🔔"      // Notification icon
-    readonly property string info: "ℹ️"       // Information icon
-    readonly property string warning: "⚠️"    // Warning icon
-    readonly property string success: "✅"   // Success icon
-    readonly property string error: "❌"     // Error icon
-    readonly property string save: "💾"      // Save icon
-    readonly property string print: "🖨️"     // Print icon
-    readonly property string excel: "📗"     // Excel/Spreadsheet icon
-    readonly property string pdf: "📕"       // PDF icon
-    readonly property string share: "📤"     // Share icon
-    readonly property string filter: "🔽"    // Filter icon
-    readonly property string sort: "⇅"       // Sort icon
+    readonly property string dashboard: "■"    // Dashboard icon - solid square
+    readonly property string users: "☰"        // Group/Users icon - list
+    readonly property string folder: "▤"       // Folder icon - folder symbol
+    readonly property string calendar: "☷"     // Calendar icon - calendar symbol
+    readonly property string clipboard: "☰"    // Clipboard/Survey icon - list
+    readonly property string edit: "✎"         // Edit/Pencil icon - pencil
+    readonly property string barChart: "▥"     // Chart/Statistics icon - bar chart
+    readonly property string fileText: "▤"     // Document icon - document
+    readonly property string settings: "⚙"     // Settings/Gear icon - gear (no variation selector)
+    readonly property string plus: "+"         // Plus/Add icon - plus
+    readonly property string search: "⌕"       // Search icon - search
+    readonly property string trash: "⌫"        // Delete/Trash icon - delete
+    readonly property string eye: "◉"          // View/Eye icon - eye
+    readonly property string download: "⇩"     // Download icon - down arrow
+    readonly property string upload: "⇧"       // Upload icon - up arrow
+    readonly property string check: "✓"        // Checkmark icon - check
+    readonly property string close: "✕"        // Close/X icon - x
+    readonly property string chevronRight: "›" // Right arrow - chevron
+    readonly property string chevronDown: "⌄"  // Down arrow - chevron
+    readonly property string chevronLeft: "‹"  // Left arrow - chevron
+    readonly property string menu: "☰"         // Menu/Hamburger icon - menu
+    readonly property string lung: "◐"         // Lung/Medical icon - circle
+    readonly property string rotate: "↻"       // Rotate/Refresh icon - rotate
+    readonly property string moon: "☽"         // Night/Moon icon - moon
+    readonly property string play: "▶"         // Play icon - play
+    readonly property string pause: "⊡"        // Pause icon - pause
+    readonly property string refresh: "↻"      // Refresh icon - refresh
+    readonly property string home: "⌂"         // Home icon - home
+    readonly property string user: "◯"         // User icon - circle
+    readonly property string bell: "⍾"         // Notification icon - bell
+    readonly property string info: "ⓘ"         // Information icon - info
+    readonly property string warning: "⚠"      // Warning icon - warning (no variation selector)
+    readonly property string success: "✓"      // Success icon - check
+    readonly property string error: "✕"        // Error icon - x
+    readonly property string save: "▣"         // Save icon - save
+    readonly property string printer: "⎙"      // Print icon - printer
+    readonly property string excel: "▦"        // Excel/Spreadsheet icon - spreadsheet
+    readonly property string pdf: "▤"          // PDF icon - document
+    readonly property string share: "⇪"        // Share icon - share
+    readonly property string filter: "≡"       // Filter icon - filter
+    readonly property string sort: "⇅"         // Sort icon - sort
 }
