@@ -5,14 +5,14 @@ QtObject {
     // Professional Unicode Icons
     // Using geometric shapes and symbols for a more professional appearance
     
-    readonly property string dashboard: "■"    // Dashboard icon - solid square
-    readonly property string users: "☰"        // Group/Users icon - list
-    readonly property string folder: "▤"       // Folder icon - folder symbol
-    readonly property string calendar: "☷"     // Calendar icon - calendar symbol
+    readonly property string dashboard: "◫"    // Dashboard icon - grid square
+    readonly property string users: "≡"        // Group/Users icon - triple line
+    readonly property string folder: "📁"       // Folder icon - folder symbol
+    readonly property string calendar: "⌚"     // Calendar icon - calendar symbol
     readonly property string clipboard: "☰"    // Clipboard/Survey icon - list
     readonly property string edit: "✎"         // Edit/Pencil icon - pencil
     readonly property string barChart: "▥"     // Chart/Statistics icon - bar chart
-    readonly property string fileText: "▤"     // Document icon - document
+    readonly property string fileText: "☲"     // Document icon - document symbol
     readonly property string settings: "⚙"     // Settings/Gear icon - gear (no variation selector)
     readonly property string plus: "+"         // Plus/Add icon - plus
     readonly property string search: "⌕"       // Search icon - search
@@ -27,22 +27,22 @@ QtObject {
     readonly property string chevronLeft: "‹"  // Left arrow - chevron
     readonly property string menu: "☰"         // Menu/Hamburger icon - menu
     readonly property string lung: "◐"         // Lung/Medical icon - circle
-    readonly property string rotate: "↻"       // Rotate/Refresh icon - rotate
+    readonly property string rotate: "⟲"       // Rotate/Refresh icon - rotate with circle
     readonly property string moon: "☽"         // Night/Moon icon - moon
     readonly property string play: "▶"         // Play icon - play
     readonly property string pause: "⊡"        // Pause icon - pause
-    readonly property string refresh: "↻"      // Refresh icon - refresh
+    readonly property string refresh: "↻"      // Refresh icon - refresh arrow
     readonly property string home: "⌂"         // Home icon - home
     readonly property string user: "◯"         // User icon - circle
-    readonly property string bell: "⍾"         // Notification icon - bell
+    readonly property string bell: "◔"         // Notification icon - quarter circle
     readonly property string info: "ⓘ"         // Information icon - info
     readonly property string warning: "⚠"      // Warning icon - warning (no variation selector)
-    readonly property string success: "✓"      // Success icon - check
-    readonly property string error: "✕"        // Error icon - x
+    readonly property string success: "✔"      // Success icon - heavy check
+    readonly property string error: "⊗"        // Error icon - circled x
     readonly property string save: "▣"         // Save icon - save
     readonly property string printer: "⎙"      // Print icon - printer
     readonly property string excel: "▦"        // Excel/Spreadsheet icon - spreadsheet
-    readonly property string pdf: "▤"          // PDF icon - document
+    readonly property string pdf: "☰"          // PDF icon - lines symbol
     readonly property string share: "⇪"        // Share icon - share
     readonly property string filter: "≡"       // Filter icon - filter
     readonly property string sort: "⇅"         // Sort icon - sort
