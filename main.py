@@ -6,10 +6,21 @@ QML-based Modern UI Application
 import sys
 import os
 from pathlib import Path
+from datetime import datetime
+import io
 
 from PySide6.QtCore import QObject, Slot, Signal, Property, QUrl
 from PySide6.QtGui import QGuiApplication
 from PySide6.QtQml import QQmlApplicationEngine, qmlRegisterSingletonType
+
+# PDF and Excel libraries
+from reportlab.lib import colors
+from reportlab.lib.pagesizes import letter, A4
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.units import inch
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer, Image
+from reportlab.lib.enums import TA_CENTER, TA_LEFT
+import pandas as pd
 
 # ==================== DATABASE ====================
 
@@ -271,6 +282,236 @@ class Backend(QObject):
     @Slot(str, result=int)
     def deviceSessionCount(self, device_code):
         return self._stats.get('by_device', {}).get(device_code, 0)
+    
+    @Slot(str, result=bool)
+    def exportParticipantsToPDF(self, filename):
+        """Export participants list to PDF"""
+        try:
+            if not filename.endswith('.pdf'):
+                filename += '.pdf'
+            
+            # Create PDF document
+            doc = SimpleDocTemplate(filename, pagesize=A4)
+            story = []
+            styles = getSampleStyleSheet()
+            
+            # Custom styles
+            title_style = ParagraphStyle(
+                'CustomTitle',
+                parent=styles['Heading1'],
+                fontSize=24,
+                textColor=colors.HexColor('#6366F1'),
+                spaceAfter=30,
+                alignment=TA_CENTER
+            )
+            
+            # Title
+            story.append(Paragraph("HUFEM - Katılımcı Listesi", title_style))
+            story.append(Spacer(1, 0.3*inch))
+            
+            # Subtitle with date
+            subtitle_style = ParagraphStyle(
+                'Subtitle',
+                parent=styles['Normal'],
+                fontSize=10,
+                textColor=colors.grey,
+                alignment=TA_CENTER
+            )
+            story.append(Paragraph(f"Rapor Tarihi: {datetime.now().strftime('%d.%m.%Y %H:%M')}", subtitle_style))
+            story.append(Spacer(1, 0.5*inch))
+            
+            # Get participants data
+            participants = self._participants
+            
+            # Create table data
+            table_data = [['No', 'TC No', 'Ad Soyad', 'Ünvan', 'Branş', 'Kurum']]
+            for i, p in enumerate(participants, 1):
+                table_data.append([
+                    str(i),
+                    p.get('tc_no', ''),
+                    f"{p.get('first_name', '')} {p.get('last_name', '')}",
+                    p.get('title', ''),
+                    p.get('branch', ''),
+                    p.get('institution', '')
+                ])
+            
+            # Create table
+            table = Table(table_data, colWidths=[0.5*inch, 1.2*inch, 2*inch, 1*inch, 1.5*inch, 1.5*inch])
+            table.setStyle(TableStyle([
+                # Header styling
+                ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#6366F1')),
+                ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+                ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
+                ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                ('FONTSIZE', (0, 0), (-1, 0), 10),
+                ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+                
+                # Body styling
+                ('BACKGROUND', (0, 1), (-1, -1), colors.white),
+                ('TEXTCOLOR', (0, 1), (-1, -1), colors.black),
+                ('ALIGN', (0, 1), (0, -1), 'CENTER'),
+                ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
+                ('FONTSIZE', (0, 1), (-1, -1), 9),
+                ('TOPPADDING', (0, 1), (-1, -1), 6),
+                ('BOTTOMPADDING', (0, 1), (-1, -1), 6),
+                
+                # Grid
+                ('GRID', (0, 0), (-1, -1), 0.5, colors.grey),
+                ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor('#F9FAFB')])
+            ]))
+            
+            story.append(table)
+            
+            # Footer
+            story.append(Spacer(1, 0.5*inch))
+            footer_style = ParagraphStyle(
+                'Footer',
+                parent=styles['Normal'],
+                fontSize=8,
+                textColor=colors.grey,
+                alignment=TA_CENTER
+            )
+            story.append(Paragraph(f"Toplam {len(participants)} katılımcı", footer_style))
+            story.append(Paragraph("Sağlık Bilimleri Üniversitesi - HUFEM", footer_style))
+            
+            # Build PDF
+            doc.build(story)
+            return True
+        except Exception as e:
+            print(f"Error exporting to PDF: {e}")
+            return False
+    
+    @Slot(str, result=bool)
+    def exportParticipantsToExcel(self, filename):
+        """Export participants list to Excel"""
+        try:
+            if not filename.endswith('.xlsx'):
+                filename += '.xlsx'
+            
+            # Get participants data
+            participants = self._participants
+            
+            # Convert to DataFrame
+            df = pd.DataFrame(participants)
+            
+            # Select and rename columns
+            columns_map = {
+                'id': 'ID',
+                'tc_no': 'TC Kimlik No',
+                'first_name': 'Ad',
+                'last_name': 'Soyad',
+                'title': 'Ünvan',
+                'branch': 'Branş',
+                'institution': 'Kurum',
+                'email': 'E-posta',
+                'phone': 'Telefon',
+                'created_at': 'Kayıt Tarihi'
+            }
+            
+            df = df[[col for col in columns_map.keys() if col in df.columns]]
+            df.rename(columns=columns_map, inplace=True)
+            
+            # Create Excel writer with formatting
+            with pd.ExcelWriter(filename, engine='openpyxl') as writer:
+                df.to_excel(writer, sheet_name='Katılımcılar', index=False)
+                
+                # Get workbook and worksheet
+                workbook = writer.book
+                worksheet = writer.sheets['Katılımcılar']
+                
+                # Style the header
+                from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
+                
+                header_fill = PatternFill(start_color='6366F1', end_color='6366F1', fill_type='solid')
+                header_font = Font(color='FFFFFF', bold=True, size=11)
+                header_alignment = Alignment(horizontal='center', vertical='center')
+                
+                for cell in worksheet[1]:
+                    cell.fill = header_fill
+                    cell.font = header_font
+                    cell.alignment = header_alignment
+                
+                # Auto-adjust column widths
+                for column in worksheet.columns:
+                    max_length = 0
+                    column_letter = column[0].column_letter
+                    for cell in column:
+                        try:
+                            if len(str(cell.value)) > max_length:
+                                max_length = len(cell.value)
+                        except:
+                            pass
+                    adjusted_width = min(max_length + 2, 50)
+                    worksheet.column_dimensions[column_letter].width = adjusted_width
+                
+                # Add borders to all cells
+                thin_border = Border(
+                    left=Side(style='thin'),
+                    right=Side(style='thin'),
+                    top=Side(style='thin'),
+                    bottom=Side(style='thin')
+                )
+                
+                for row in worksheet.iter_rows(min_row=1, max_row=len(df)+1):
+                    for cell in row:
+                        cell.border = thin_border
+                        if cell.row > 1:  # Not header
+                            cell.alignment = Alignment(horizontal='left', vertical='center')
+            
+            return True
+        except Exception as e:
+            print(f"Error exporting to Excel: {e}")
+            return False
+    
+    @Slot(int, str, result=bool)
+    def exportSurveyResultsToPDF(self, survey_id, filename):
+        """Export survey results to PDF"""
+        try:
+            if not filename.endswith('.pdf'):
+                filename += '.pdf'
+            
+            # Create PDF document
+            doc = SimpleDocTemplate(filename, pagesize=A4)
+            story = []
+            styles = getSampleStyleSheet()
+            
+            # Custom styles
+            title_style = ParagraphStyle(
+                'CustomTitle',
+                parent=styles['Heading1'],
+                fontSize=24,
+                textColor=colors.HexColor('#6366F1'),
+                spaceAfter=30,
+                alignment=TA_CENTER
+            )
+            
+            # Title
+            story.append(Paragraph("HUFEM - Anket Sonuçları", title_style))
+            story.append(Spacer(1, 0.3*inch))
+            
+            # Subtitle
+            subtitle_style = ParagraphStyle(
+                'Subtitle',
+                parent=styles['Normal'],
+                fontSize=10,
+                textColor=colors.grey,
+                alignment=TA_CENTER
+            )
+            story.append(Paragraph(f"Rapor Tarihi: {datetime.now().strftime('%d.%m.%Y %H:%M')}", subtitle_style))
+            story.append(Spacer(1, 0.5*inch))
+            
+            # Add survey info and results here
+            # This is a placeholder - you would query actual survey data
+            info_text = f"Anket ID: {survey_id}"
+            story.append(Paragraph(info_text, styles['Normal']))
+            story.append(Spacer(1, 0.3*inch))
+            
+            # Build PDF
+            doc.build(story)
+            return True
+        except Exception as e:
+            print(f"Error exporting survey to PDF: {e}")
+            return False
 
 
 # ==================== MAIN ====================
