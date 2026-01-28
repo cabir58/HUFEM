@@ -167,18 +167,19 @@ ApplicationWindow {
     }
     
     // Main content
-    Row {
+    Column {
         anchors {
             top: titleBar.bottom
             left: parent.left
             right: parent.right
             bottom: parent.bottom
         }
+        spacing: 0
         
-        // Sidebar
-        Sidebar {
-            id: sidebar
-            height: parent.height
+        // Top Navigation
+        TopNavigation {
+            id: topNav
+            width: parent.width
             
             onPageChanged: (pageName) => {
                 pageStack.currentPage = pageName
@@ -188,32 +189,26 @@ ApplicationWindow {
         // Page stack
         StackLayout {
             id: pageStack
-            width: parent.width - sidebar.width
-            height: parent.height
+            width: parent.width
+            height: parent.height - topNav.height
             
             property string currentPage: "dashboard"
             currentIndex: {
                 switch(currentPage) {
                     case "dashboard": return 0
                     case "participants": return 1
-                    case "groups": return 2
-                    case "sessions": return 3
-                    case "surveys": return 4
-                    case "fill_survey": return 5
-                    case "statistics": return 6
-                    case "reports": return 7
+                    case "surveys": return 2
+                    case "fill_survey": return 3
+                    case "reports": return 4
                     default: return 0
                 }
             }
             
             DashboardPage { }
             ParticipantsPage { }
-            PlaceholderPage { title: "Dönem Yönetimi"; subtitle: "Eğitim dönemlerini yönetin" }
-            PlaceholderPage { title: "Eğitim Seansları"; subtitle: "Eğitim oturumlarını takip edin" }
-            PlaceholderPage { title: "Anket Yönetimi"; subtitle: "Anketleri oluşturun ve yönetin" }
+            SurveysPage { }
             PlaceholderPage { title: "Anket Doldur"; subtitle: "Katılımcı anketlerini doldurun" }
-            PlaceholderPage { title: "İstatistikler"; subtitle: "Veri analizi ve görselleştirme" }
-            PlaceholderPage { title: "Raporlar"; subtitle: "PDF ve Excel raporları" }
+            ReportsPage { }
         }
     }
     

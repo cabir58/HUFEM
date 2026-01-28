@@ -63,7 +63,7 @@ Rectangle {
                     spacing: Theme.spacingL
                     
                     StatCard {
-                        icon: "👥"
+                        icon: Icons.users
                         value: totalParticipants.toString()
                         label: "Toplam Katılımcı"
                         accentColor: Theme.primary
@@ -72,32 +72,32 @@ Rectangle {
                     }
                     
                     StatCard {
-                        icon: "📁"
-                        value: activeGroups.toString()
-                        label: "Aktif Dönem"
+                        icon: Icons.clipboard
+                        value: "12"
+                        label: "Aktif Anket"
                         accentColor: Theme.secondary
                     }
                     
                     StatCard {
-                        icon: "📅"
-                        value: totalSessions.toString()
-                        label: "Toplam Eğitim"
+                        icon: Icons.check
+                        value: "583"
+                        label: "Toplam Yanıt"
                         accentColor: Theme.success
                         trend: "+8%"
                         trendUp: true
                     }
                     
                     StatCard {
-                        icon: "📊"
-                        value: sessionsThisMonth.toString()
-                        label: "Bu Ay"
+                        icon: Icons.barChart
+                        value: "94%"
+                        label: "Tamamlama Oranı"
                         accentColor: Theme.warning
                     }
                 }
                 
                 // Section title
                 Text {
-                    text: "Cihaz Bazlı Eğitimler"
+                    text: "📋 Son Anket Sonuçları"
                     font {
                         family: Theme.fontFamily
                         pixelSize: Theme.fontMedium
@@ -106,31 +106,31 @@ Rectangle {
                     color: Theme.gray800
                 }
                 
-                // Device cards
+                // Survey results cards
                 Row {
                     spacing: Theme.spacingL
                     
                     DeviceCard {
-                        icon: "🫁"
-                        title: "Hipoksi Eğitim Cihazı"
-                        subtitle: "Hipoksik ortam simülasyonu"
-                        count: hypoxiaCount.toString()
+                        icon: Icons.clipboard
+                        title: "Hipoksi Eğitimi Anketi"
+                        subtitle: "156 katılımcı yanıtladı"
+                        count: "4.8/5.0"
                         accentColor: Theme.hypoxia
                     }
                     
                     DeviceCard {
-                        icon: "🔄"
-                        title: "SD Eğitim Cihazı"
-                        subtitle: "Mekansal dezoryantasyon"
-                        count: sdCount.toString()
+                        icon: Icons.clipboard
+                        title: "SD Eğitimi Anketi"
+                        subtitle: "98 katılımcı yanıtladı"
+                        count: "4.6/5.0"
                         accentColor: Theme.sd
                     }
                     
                     DeviceCard {
-                        icon: "🌙"
-                        title: "Gece Görüş Lab"
-                        subtitle: "NVG eğitim laboratuvarı"
-                        count: nvgCount.toString()
+                        icon: Icons.clipboard
+                        title: "Gece Görüş Anketi"
+                        subtitle: "84 katılımcı yanıtladı"
+                        count: "4.9/5.0"
                         accentColor: Theme.nvg
                     }
                 }
@@ -162,7 +162,7 @@ Rectangle {
                                 }
                                 
                                 Text {
-                                    text: "📋 Son Eğitimler"
+                                    text: Icons.clipboard + " Son Anket Aktiviteleri"
                                     font {
                                         family: Theme.fontFamily
                                         pixelSize: Theme.fontMedium
@@ -192,14 +192,14 @@ Rectangle {
                         DataTable {
                             width: parent.width
                             height: parent.height - 56
-                            headers: ["Tarih", "Dönem", "Cihaz", "Katılımcı", "Gözetmen", "Durum"]
-                            columnWidths: [120, 150, 180, 100, 150, 120]
+                            headers: ["Tarih", "Anket", "Katılımcı", "Yanıt Sayısı", "Tamamlama", "Durum"]
+                            columnWidths: [120, 250, 150, 120, 120, 120]
                             data: [
-                                {tarih: "28.01.2026", donem: "54. Dönem", cihaz: "Hipoksi Cihazı", katilimci: "12", gozetmen: "Dr. Yılmaz", durum: "✓ Tamamlandı"},
-                                {tarih: "27.01.2026", donem: "53. Dönem", cihaz: "SD Cihazı", katilimci: "8", gozetmen: "Dr. Kaya", durum: "✓ Tamamlandı"},
-                                {tarih: "27.01.2026", donem: "54. Dönem", cihaz: "Gece Görüş Lab", katilimci: "15", gozetmen: "Dr. Demir", durum: "✓ Tamamlandı"},
-                                {tarih: "26.01.2026", donem: "52. Dönem", cihaz: "Hipoksi Cihazı", katilimci: "10", gozetmen: "Dr. Yılmaz", durum: "✓ Tamamlandı"},
-                                {tarih: "25.01.2026", donem: "53. Dönem", cihaz: "SD Cihazı", katilimci: "14", gozetmen: "Dr. Kaya", durum: "✓ Tamamlandı"},
+                                {tarih: "28.01.2026", donem: "Hipoksi Eğitimi Anketi", cihaz: "Ali Yılmaz", katilimci: "12/12", gozetmen: "100%", durum: "✅ Tamamlandı"},
+                                {tarih: "27.01.2026", donem: "SD Eğitimi Anketi", cihaz: "Ayşe Kaya", katilimci: "10/15", gozetmen: "67%", durum: "⏳ Devam Ediyor"},
+                                {tarih: "27.01.2026", donem: "Gece Görüş Anketi", cihaz: "Mehmet Demir", katilimci: "15/15", gozetmen: "100%", durum: "✅ Tamamlandı"},
+                                {tarih: "26.01.2026", donem: "Hipoksi Eğitimi Anketi", cihaz: "Fatma Çelik", katilimci: "8/12", gozetmen: "67%", durum: "⏳ Devam Ediyor"},
+                                {tarih: "25.01.2026", donem: "SD Eğitimi Anketi", cihaz: "Can Öztürk", katilimci: "14/15", gozetmen: "93%", durum: "✅ Tamamlandı"},
                             ]
                         }
                     }
@@ -219,25 +219,25 @@ Rectangle {
                         spacing: Theme.spacingL
                         
                         Button {
-                            text: "Yeni Dönem Oluştur"
-                            icon: "📁"
-                        }
-                        
-                        Button {
-                            text: "Eğitim Başlat"
-                            icon: "▶"
-                            variant: "success"
+                            text: "Yeni Anket Oluştur"
+                            icon: Icons.plus
                         }
                         
                         Button {
                             text: "Anket Doldur"
-                            icon: "✏"
+                            icon: Icons.edit
+                            variant: "success"
+                        }
+                        
+                        Button {
+                            text: "Sonuçları Görüntüle"
+                            icon: Icons.barChart
                             variant: "secondary"
                         }
                         
                         Button {
                             text: "Rapor Oluştur"
-                            icon: "📄"
+                            icon: Icons.pdf
                             variant: "secondary"
                         }
                     }
