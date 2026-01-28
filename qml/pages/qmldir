@@ -1,0 +1,4 @@
+module pages
+DashboardPage 1.0 DashboardPage.qml
+ParticipantsPage 1.0 ParticipantsPage.qml
+PlaceholderPage 1.0 PlaceholderPage.qml

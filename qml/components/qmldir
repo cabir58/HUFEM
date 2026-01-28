@@ -1,0 +1,11 @@
+module components
+Card 1.0 Card.qml
+Button 1.0 Button.qml
+NavItem 1.0 NavItem.qml
+StatCard 1.0 StatCard.qml
+SearchBox 1.0 SearchBox.qml
+DeviceCard 1.0 DeviceCard.qml
+PageHeader 1.0 PageHeader.qml
+Sidebar 1.0 Sidebar.qml
+Badge 1.0 Badge.qml
+DataTable 1.0 DataTable.qml

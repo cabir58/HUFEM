@@ -1,0 +1,12 @@
+# HUFEM QML v2.0
+# Hava ve Uzay Fizyolojisi Eğitim Merkezi
+
+# Qt Framework (QML için PySide6 gerekli)
+PySide6>=6.4.0
+
+# Data processing
+pandas>=2.0.0
+openpyxl>=3.1.0
+
+# PDF reports (optional)
+reportlab>=4.0.0
